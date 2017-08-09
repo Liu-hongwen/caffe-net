@@ -1,0 +1,50 @@
+Data Layer
+source:数据库文件的路径
+batch_size：网络一次输入图像的个数
+backend：指定数据库的类型，默认LEVELDB
+
+transform_param:数据的预处理
+scale：0.00390625 将输入数据由0-255归一化到0-1之间
+mean_file：用一个配置文件来进行均值操作
+mirror: true表示开启镜像，false表示关闭镜像
+crop_size：227 剪裁一个227*227的图块，在训练阶段随机剪裁，在测试阶段从中间裁剪
+
+Convolution Layer
+num_output:指定卷积核的数量或者表示输出平面特征的数量
+kernel_size：指定卷积核的大小
+stride：指定卷积核在输入图像上滑动的步长，默认为1
+pad:指定在输入图像周围补0的像素个数，默认为0
+weight_filler：指定权值参数的初始化方案
+bias_filler：指定偏置参数的初始化方案
+constant:常量填充
+gaussian：高斯分布填充
+xavier：均匀分布填充
+
+Pooling Layer
+pool：指定池化方法，最大值池化（MAX）和均值池化（AVE）
+kernel_size：指定池化窗口的大小
+stride：指定池化窗口在输入图像上滑动的步长，默认为1
+pad:指定在输入图像周围补0的像素个数，默认为0
+
+InnerProduct Layer
+num_output：全连接层的输出节点或者滤波器的个数
+weight_filler：指定权值参数的初始化方案
+bias_filler：指定偏置参数的初始化方案
+constant:常量填充
+gaussian：高斯分布填充
+xavier：均匀分布填充
+
+ReLU Layer
+
+LRN Layer
+local_size:跨通道时的归一化，指明参与求和的通道数；通道内的归一化时，指明参与求和的方形区域的边长。默认为5
+alpha：尺度参数，默认为1
+beta：指数参数，默认为5
+
+Dropout Layer
+dropout_ratio：过拟合丢弃数据的概率，默认为0.5
+
+Accuracy Layer
+
+SoftmaxWithLoss Layer
+
