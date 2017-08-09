@@ -3,10 +3,9 @@
 import caffe
 import numpy as np
 
-deploy = "/Users/lhw/caffe-project/CNN_age_gender/deploy_gender.prototxt"
-caffemodel = "/Users/lhw/caffe-project/CNN_age_gender/gender_net.caffemodel"
-meanfile = "/Users/lhw/caffe-project/CNN_age_gender/mean.binaryproto"
-image = "/Users/lhw/caffe-project/CNN_age_gender/example_image.jpg"
+deploy = "/Users/lhw/caffe-project/race_classification/race_deploy.prototxt"
+caffemodel = "/Users/lhw/caffe-project/race_classification/race_iter_500000.caffemodel"
+image = "/Users/lhw/caffe-project/race_classification/test_image/aaa.bmp"
 
 net = caffe.Net(deploy, caffemodel, caffe.TEST)
 
@@ -23,11 +22,15 @@ img = caffe.io.load_image(image)
 net.blobs['data'].data[...] = transformer.preprocess('data', img)
 
 out = net.forward()
-gender_list = ['Male', 'Female']
+race_list = ['Asian', 'Black', 'White']
+
 prob = net.blobs['prob'].data[0].flatten()
-
 print prob
+predict = prob.argsort()[-1]
+print prob.argsort()
+print 'the class is', race_list[predict]
 
-order = prob.argsort()[-1]
-print 'the class is', gender_list[order]
+print out['prob']
+predict = out['prob'].argmax()
+print 'the class is', race_list[predict]
 
